@@ -5,10 +5,10 @@ C a .MEX file to MATLAB.
 C
 C This subroutine is the main gateway to MATLAB.  When a MEX function
 C  is executed MATLAB calls the MEXFUNCTION subroutine in the corresponding
-C  MEX file.  
+C  MEX file.
 C
 C Copyright 1984-2006 The MathWorks, Inc.
-C 
+C
 C
 
       SUBROUTINE MEXFUNCTION(NLHS, PLHS, NRHS, PRHS)
@@ -84,14 +84,14 @@ C     Get the size of the input array. create both mx and int4 variables
 C     Create matrix for the return argument.
       dims(1) = mx3
       dims(2) = mxlab
-      plhs(1) = mxCreateNumericArray(mx2, dims, 
-     +          mxClassIDFromClassName('int32'), 
+      plhs(1) = mxCreateNumericArray(mx2, dims,
+     +          mxClassIDFromClassName('int32'),
      +          c0)
       plhs(2) = mxCreateDoubleMatrix(mxlab, mx1, c0)
       dims(1) = mx1
       dims(2) = mx1
-      plhs(3) = mxCreateNumericArray(mx2, dims, 
-     +          mxClassIDFromClassName('int32'), 
+      plhs(3) = mxCreateNumericArray(mx2, dims,
+     +          mxClassIDFromClassName('int32'),
      +          c0)
 C     Create Fortran array from the input argument.
 
@@ -100,7 +100,7 @@ C     Create Fortran array from the input argument.
       call mxCopyPtrToReal8(mxGetPr(prhs(2)), vvals, mxval)
       call mxCopyPtrToInteger4(mxGetPr(prhs(3)), ichan, mxcha)
       call mxCopyPtrToReal8(mxGetPr(prhs(4)), thresh, mx1)
-      call mxCopyPtrToInteger4(mxGetPr(prhs(5)), btaus, 
+      call mxCopyPtrToInteger4(mxGetPr(prhs(5)), btaus,
      ;                         mxrow * mxcol * mxcha)
       call mxCopyPtrToInteger4(mxGetPr(prhs(6)), nbmax, mx1)
 
@@ -118,7 +118,7 @@ C     Create pointers
 
       call snapy(ivals, vvals, ichan, thresh, btaus, nbmax, lbout,
      ;           vclmp, nlabl, nlbin, nvals, nchan, ncolm, nrows)
-      if (nlabl .EQ. 0) then
+      if (nlabl .LT. 0) then
       call mexErrMsgIdAndTxt('MATLAB:revord:nInput',
      ;                        'Allocate more beams')
       return

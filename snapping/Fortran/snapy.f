@@ -58,7 +58,10 @@ C
 C Sparse data beamforming
       call sbeam(ival, vval, ichan, thresh, btaus, kbeam, vbeam, nbeam,
      ;           nbmax, nval, nchan, nlook)
-      if ( nbeam.EQ.nbmax ) return
+      if ( nbeam.EQ.nbmax ) then
+          nlabl = -1
+          return
+      end if
 C three-dimsional beamformer output labeling
       call asc3d(kbeam, llasc, nrows, nbeam, nlabl)
 C Accumulate labeled clusters into sparse detection outputs

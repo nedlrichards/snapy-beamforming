@@ -3,7 +3,7 @@ from numpy.distutils.core import Extension
 import os
 
 src_dir = 'snapping/Fortran'
-ext1 = Extension('sparse_beam',
+ext1 = Extension('snapping',
                  [os.path.join(src_dir, 'addtau.f'),
                   os.path.join(src_dir, 'rollsort.f'),
                   os.path.join(src_dir, 'smerge.f'),
