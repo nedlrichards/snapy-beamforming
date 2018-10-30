@@ -63,8 +63,7 @@ def snapy_beamform(sparse_cols, sparse_vals, threshold, beam_taus,
                                                    nrows,
                                                    ncols)
 
-    import ipdb; ipdb.set_trace()
-    if nlabels == -1:
+    if nlabels == 0:
         raise(ValueError('Preallocate more beams'))
     if nlabels >= num_lab_max:
         raise(ValueError('Preallocate more labels, at least %i labels needed'%
@@ -76,3 +75,11 @@ def snapy_beamform(sparse_cols, sparse_vals, threshold, beam_taus,
     labels[[0, 1], :] -= 1
 
     return labels.astype(np.int_, order='C'), label_val.astype(np.float_)
+
+def labels_to_indicies(tau_inds, labels):
+    """Convert from snapy labels to detection indicies"""
+    iarr = labels[0, :]
+    uflat = np.unravel_index(labels[1, :], tau_inds.shape[:-1])
+    base_inds = tau_inds[uflat[0], uflat[1], :]
+    beam_inds = base_inds + iarr[:, None]
+    return beam_inds.astype(np.int_), uflat[0], uflat[1]
